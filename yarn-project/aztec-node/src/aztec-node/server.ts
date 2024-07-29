@@ -75,7 +75,7 @@ import {
   type ContractInstanceWithAddress,
   type ProtocolContractAddresses,
 } from '@aztec/types/contracts';
-import { MerkleTrees, type WorldStateSynchronizer, createWorldStateSynchronizer } from '@aztec/world-state';
+import { type WorldStateSynchronizer, createWorldStateSynchronizer } from '@aztec/world-state';
 
 import { type AztecNodeConfig, getPackageInfo } from './config.js';
 import { MetadataTxValidator } from './tx_validator/tx_metadata_validator.js';
@@ -86,6 +86,7 @@ import { TxProofValidator } from './tx_validator/tx_proof_validator.js';
  */
 export class AztecNodeService implements AztecNode {
   private packageVersion: string;
+  private publicProcessorFactory: PublicProcessorFactory;
 
   constructor(
     protected config: AztecNodeConfig,
@@ -107,6 +108,12 @@ export class AztecNodeService implements AztecNode {
     private log = createDebugLogger('aztec:node'),
   ) {
     this.packageVersion = getPackageInfo().version;
+    this.publicProcessorFactory = new PublicProcessorFactory(
+      this.worldStateSynchronizer,
+      this.contractDataSource,
+      new WASMSimulator(),
+      this.telemetry,
+    );
     const message =
       `Started Aztec Node against chain 0x${l1ChainId.toString(16)} with contracts - \n` +
       `Rollup: ${config.l1Contracts.rollupAddress.toString()}\n` +
@@ -721,18 +728,10 @@ export class AztecNodeService implements AztecNode {
     );
     const prevHeader = (await this.blockSource.getBlock(-1))?.header;
 
-    // Instantiate merkle trees so uncommitted updates by this simulation are local to it.
+    // Fork current world state so uncommitted updates by this simulation are local to it and we don't mess up block building.
     // TODO we should be able to remove this after https://github.com/AztecProtocol/aztec-packages/issues/1869
     // So simulation of public functions doesn't affect the merkle trees.
-    const merkleTrees = await MerkleTrees.new(this.merkleTreesDb, this.log);
-
-    const publicProcessorFactory = new PublicProcessorFactory(
-      merkleTrees.asLatest(),
-      this.contractDataSource,
-      new WASMSimulator(),
-      this.telemetry,
-    );
-    const processor = publicProcessorFactory.create(prevHeader, newGlobalVariables);
+    const processor = await this.publicProcessorFactory.createFromFork(prevHeader, newGlobalVariables);
     // REFACTOR: Consider merging ProcessReturnValues into ProcessedTx
     const [processedTxs, failedTxs, returns] = await processor.process([tx]);
     // REFACTOR: Consider returning the error/revert rather than throwing
