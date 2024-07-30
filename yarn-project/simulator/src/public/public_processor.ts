@@ -33,7 +33,7 @@ import {
 } from '@aztec/simulator';
 import { Attributes, type TelemetryClient, type Tracer, trackSpan } from '@aztec/telemetry-client';
 import { type ContractDataSource } from '@aztec/types/contracts';
-import { type MerkleTreeOperations, type WorldStateSynchronizer } from '@aztec/world-state';
+import { type MerkleTreeOperations } from '@aztec/world-state';
 
 import { type AbstractPhaseManager } from './abstract_phase_manager.js';
 import { PhaseManagerFactory } from './phase_manager_factory.js';
@@ -46,7 +46,7 @@ import { type PublicKernelCircuitSimulator } from './public_kernel_circuit_simul
  */
 export class PublicProcessorFactory {
   constructor(
-    private merkleTree: Pick<WorldStateSynchronizer, 'getCommitted' | 'getFork' | 'getLatest'>,
+    private merkleTree: MerkleTreeOperations,
     private contractDataSource: ContractDataSource,
     private simulator: SimulationProvider,
     private telemetryClient: TelemetryClient,
@@ -58,30 +58,8 @@ export class PublicProcessorFactory {
    * @param globalVariables - The global variables for the block being processed.
    * @returns A new instance of a PublicProcessor.
    */
-  public create(historicalHeader: Header | undefined, globalVariables: GlobalVariables): PublicProcessor {
-    const merkleTree = this.merkleTree.getLatest();
-    return this.doCreate(historicalHeader, globalVariables, merkleTree);
-  }
-
-  /**
-   * Creates a new instance of a PublicProcessor from a forked instance of world state.
-   * @param historicalHeader - The header of a block previous to the one in which the tx is included.
-   * @param globalVariables - The global variables for the block being processed.
-   * @returns A new instance of a PublicProcessor.
-   */
-  public async createFromFork(
-    historicalHeader: Header | undefined,
-    globalVariables: GlobalVariables,
-  ): Promise<PublicProcessor> {
-    const merkleTree = await this.merkleTree.getFork(true);
-    return this.doCreate(historicalHeader, globalVariables, merkleTree);
-  }
-
-  private doCreate(
-    maybeHistoricalHeader: Header | undefined,
-    globalVariables: GlobalVariables,
-    merkleTree: MerkleTreeOperations,
-  ) {
+  public create(maybeHistoricalHeader: Header | undefined, globalVariables: GlobalVariables): PublicProcessor {
+    const merkleTree = this.merkleTree;
     const historicalHeader = maybeHistoricalHeader ?? merkleTree.getInitialHeader();
     const publicContractsDB = new ContractsDataSourcePublicDB(this.contractDataSource);
     const worldStatePublicDB = new WorldStatePublicDB(merkleTree);
