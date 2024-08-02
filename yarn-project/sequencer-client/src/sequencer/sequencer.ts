@@ -231,6 +231,8 @@ export class Sequencer {
         this._feeRecipient,
       );
 
+      // @todo @LHerskind Include some logic to consider slots
+
       // TODO: It should be responsibility of the P2P layer to validate txs before passing them on here
       const allValidTxs = await this.takeValidTxs(
         pendingTxs,
@@ -293,6 +295,8 @@ export class Sequencer {
       if (!(await this.publisher.isItMyTurnToSubmit())) {
         throw new Error(`Not this sequencer turn to submit block`);
       }
+
+      // @todo @LHerskind Should take into account, block number, proposer and slot number
     };
 
     // Get l1 to l2 messages from the contract
