@@ -343,26 +343,27 @@ export class Synchronizer {
         const { incomingNotes: inNotes, outgoingNotes: outNotes } = await processor.decodeDeferredNotes(deferredNotes);
         incomingNotes.push(...inNotes);
         outgoingNotes.push(...outNotes);
+
+        await this.db.addNotes(inNotes, outNotes, processor.account);
+
+        incomingNotes.forEach(noteDao => {
+          this.log.debug(
+            `Decoded deferred incoming note for contract ${noteDao.contractAddress} at slot ${
+              noteDao.storageSlot
+            } with nullifier ${noteDao.siloedNullifier.toString()}`,
+          );
+        });
+
+        outgoingNotes.forEach(noteDao => {
+          this.log.debug(
+            `Decoded deferred outgoing note for contract ${noteDao.contractAddress} at slot ${noteDao.storageSlot}`,
+          );
+        });
       }
     }
 
     // now drop the deferred notes, and add the decoded notes
     await this.db.removeDeferredNotesByContract(contractAddress);
-    await this.db.addNotes(incomingNotes, outgoingNotes);
-
-    incomingNotes.forEach(noteDao => {
-      this.log.debug(
-        `Decoded deferred incoming note for contract ${noteDao.contractAddress} at slot ${
-          noteDao.storageSlot
-        } with nullifier ${noteDao.siloedNullifier.toString()}`,
-      );
-    });
-
-    outgoingNotes.forEach(noteDao => {
-      this.log.debug(
-        `Decoded deferred outgoing note for contract ${noteDao.contractAddress} at slot ${noteDao.storageSlot}`,
-      );
-    });
 
     await this.#removeNullifiedNotes(incomingNotes);
   }
