@@ -8,6 +8,7 @@ import {
   type DebugLogger,
   EthAddress,
   type PXE,
+  Wallet,
   createDebugLogger,
 } from '@aztec/aztec.js';
 import { createL1Clients } from '@aztec/ethereum';
@@ -167,6 +168,7 @@ export class PublicCrossChainMessagingContractTest {
           walletClient,
           this.ownerAddress,
           this.aztecNodeConfig.l1Contracts,
+          this.user1Wallet,
         );
 
         this.publicClient = publicClient;
