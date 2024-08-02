@@ -35,6 +35,10 @@ void AztecIVC::accumulate(ClientCircuit& circuit, const std::shared_ptr<Verifica
     // occur in kernels, similar to folding recursive verification.
     goblin.merge(circuit);
 
+    // TODO(https://github.com/AztecProtocol/barretenberg/issues/1069): Do proper aggregation with merge recursive
+    // verifier.
+    circuit.add_recursive_proof(stdlib::recursion::init_default_agg_obj_indices<ClientCircuit>(circuit));
+
     // Construct the prover instance for circuit
     auto prover_instance = std::make_shared<ProverInstance>(circuit, trace_structure);
 
