@@ -1,5 +1,39 @@
 # Changelog
 
+## [0.48.0](https://github.com/AztecProtocol/aztec-packages/compare/barretenberg-v0.47.1...barretenberg-v0.48.0) (2024-08-03)
+
+
+### Features
+
+* **avm:** Poseidon2 constraints ([#7269](https://github.com/AztecProtocol/aztec-packages/issues/7269)) ([bd5a26e](https://github.com/AztecProtocol/aztec-packages/commit/bd5a26eed42a8e23e2c9ea158419836a2b0b3333))
+* **avm:** Support skippable relations ([#7750](https://github.com/AztecProtocol/aztec-packages/issues/7750)) ([89d7b37](https://github.com/AztecProtocol/aztec-packages/commit/89d7b3707dcbe4cc684be7dcfdd8c356519067b0))
+* **bb:** Integrate tracy memory/cpu profiler ([#7718](https://github.com/AztecProtocol/aztec-packages/issues/7718)) ([67efb8b](https://github.com/AztecProtocol/aztec-packages/commit/67efb8b13f8009b55d540b85b849a2172c28edd8))
+* CLI wallet initial version ([#7651](https://github.com/AztecProtocol/aztec-packages/issues/7651)) ([83f8d9c](https://github.com/AztecProtocol/aztec-packages/commit/83f8d9c5e4f53b3691d5a1168c69a160ab657139))
+* Consistent handling of point at infinity in transcript ([#7709](https://github.com/AztecProtocol/aztec-packages/issues/7709)) ([7a763c0](https://github.com/AztecProtocol/aztec-packages/commit/7a763c07a29229ba1b1c4f8667e797c2a160022f))
+* Extend SMT Utils ([#7126](https://github.com/AztecProtocol/aztec-packages/issues/7126)) ([cfb4aa8](https://github.com/AztecProtocol/aztec-packages/commit/cfb4aa8602c316003d018bf3192e2a13e36cacad))
+* New IVC class that better reflects the aztec architecture ([#7695](https://github.com/AztecProtocol/aztec-packages/issues/7695)) ([f8a76c1](https://github.com/AztecProtocol/aztec-packages/commit/f8a76c1a65c7c25f49bf2d7b4ef5302a0d0fbd58))
+* Plumbing for slot numbers ([#7663](https://github.com/AztecProtocol/aztec-packages/issues/7663)) ([e7c1dc3](https://github.com/AztecProtocol/aztec-packages/commit/e7c1dc343eaaa9d126d18b7456c207ac50c43d39))
+* Report gates and VKs of private protocol circuits with megahonk ([#7722](https://github.com/AztecProtocol/aztec-packages/issues/7722)) ([2c03259](https://github.com/AztecProtocol/aztec-packages/commit/2c03259653c45d7f17086320a9ea76225d1595ed))
+* Ts pedersen commit with offset ([#7699](https://github.com/AztecProtocol/aztec-packages/issues/7699)) ([b2224b4](https://github.com/AztecProtocol/aztec-packages/commit/b2224b48190d33af5e78efa3a470503331b0371f))
+
+
+### Bug Fixes
+
+* **avm:** Correctly build spike vm ([#7726](https://github.com/AztecProtocol/aztec-packages/issues/7726)) ([0c1d98f](https://github.com/AztecProtocol/aztec-packages/commit/0c1d98ff53ff0d39956d9837ce7b32cd75e860c3))
+* **ci:** Fix circle-ci issue ([#7734](https://github.com/AztecProtocol/aztec-packages/issues/7734)) ([76acff9](https://github.com/AztecProtocol/aztec-packages/commit/76acff9a51190fd2faddd3913d625509d545702a))
+* Ensure dummy values are on the curve for MSM ([#7653](https://github.com/AztecProtocol/aztec-packages/issues/7653)) ([11f3885](https://github.com/AztecProtocol/aztec-packages/commit/11f3885d11237dbd3e203d07bf4cdb7df316e07a))
+* Handle properly invalid witness assignment in ec add ([#7690](https://github.com/AztecProtocol/aztec-packages/issues/7690)) ([6c19c7e](https://github.com/AztecProtocol/aztec-packages/commit/6c19c7eb91acc47106549fa7943f59d2dca3e0ce))
+
+
+### Miscellaneous
+
+* **avm:** Codegen improvements ([#7703](https://github.com/AztecProtocol/aztec-packages/issues/7703)) ([f26bb32](https://github.com/AztecProtocol/aztec-packages/commit/f26bb32abcdcea4450f4867d2d88efbbcd468c01))
+* **avm:** Make fixed tables use constant polys ([#7744](https://github.com/AztecProtocol/aztec-packages/issues/7744)) ([4b793b0](https://github.com/AztecProtocol/aztec-packages/commit/4b793b014b31382c10ea0ff7c35bd324b834410a))
+* **avm:** Rearrange files ([#7723](https://github.com/AztecProtocol/aztec-packages/issues/7723)) ([3270662](https://github.com/AztecProtocol/aztec-packages/commit/3270662882bf98d81cf4a897957fb65cbbaa2464))
+* **avm:** Update stats ([#7701](https://github.com/AztecProtocol/aztec-packages/issues/7701)) ([1b7d27e](https://github.com/AztecProtocol/aztec-packages/commit/1b7d27e310c70a211f30816b42a879118378a049))
+* **avm:** Vm compilation metrics ([#7704](https://github.com/AztecProtocol/aztec-packages/issues/7704)) ([0d83cde](https://github.com/AztecProtocol/aztec-packages/commit/0d83cde126789016cc15087b7ff0cfb26eb31818))
+* Lldb bb debugging helper script ([#7627](https://github.com/AztecProtocol/aztec-packages/issues/7627)) ([f35786a](https://github.com/AztecProtocol/aztec-packages/commit/f35786a34659a2691d9810517fa4e4e89b99111a))
+
 ## [0.47.1](https://github.com/AztecProtocol/aztec-packages/compare/barretenberg-v0.47.0...barretenberg-v0.47.1) (2024-07-30)
 
 

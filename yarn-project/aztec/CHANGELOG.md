@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.48.0](https://github.com/AztecProtocol/aztec-packages/compare/aztec-package-v0.47.1...aztec-package-v0.48.0) (2024-08-03)
+
+
+### Features
+
+* CLI wallet initial version ([#7651](https://github.com/AztecProtocol/aztec-packages/issues/7651)) ([83f8d9c](https://github.com/AztecProtocol/aztec-packages/commit/83f8d9c5e4f53b3691d5a1168c69a160ab657139))
+
+
+### Miscellaneous
+
+* Handle exceptions in bot runner ([#7679](https://github.com/AztecProtocol/aztec-packages/issues/7679)) ([dd6176b](https://github.com/AztecProtocol/aztec-packages/commit/dd6176b444ae1b9f8313af98f7ebd5eeb2f31ed7)), closes [#7658](https://github.com/AztecProtocol/aztec-packages/issues/7658)
+
 ## [0.47.1](https://github.com/AztecProtocol/aztec-packages/compare/aztec-package-v0.47.0...aztec-package-v0.47.1) (2024-07-30)
 
 
